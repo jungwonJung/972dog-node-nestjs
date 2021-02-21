@@ -5,11 +5,23 @@ var bodyparser = require('body-parser');
 var mysql = require('mysql')
 
 app.set('view engine', 'ejs');
-app.set('views', '/views/')
+app.set('views', './views/')
 
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({extended:true}))
 
+//routes
+var indexRouter = require('./routes/index')
+var userRouter = require('./routes/user')
+var petRouter = require('./routes/petinfo')
+
+
+app.use('/', indexRouter)
+app.use('/user', userRouter)
+app.use('/petinfo', petRouter)
+
+
+
 app.listen(3000, function(){
-    console.log('server start!')
+    console.log('서버시작')
 })
