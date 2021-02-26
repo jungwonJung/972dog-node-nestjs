@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var ejs = require('ejs');
 var bodyparser = require('body-parser');
-var mysql = require('mysql')
+var mysql = require('mysql2')
 
 app.set('view engine', 'ejs');
 app.set('views', './views/')
