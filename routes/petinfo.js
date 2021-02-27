@@ -10,6 +10,8 @@ var connection = mysql.createConnection({  // 데이터베이스 연동폼 ,
     port:"3306",
 });
 
+router.post
+
 
 
 module.exports = router;
