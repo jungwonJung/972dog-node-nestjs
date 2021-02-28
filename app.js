@@ -14,11 +14,13 @@ app.use(bodyparser.urlencoded({extended:true}))
 var indexRouter = require('./routes/index')
 var userRouter = require('./routes/user')
 var petRouter = require('./routes/petinfo')
+var adminRouter = require('./routes/admin')
 
 
 app.use('/', indexRouter)
 app.use('/user', userRouter)
 app.use('/petinfo', petRouter)
+app.use('/admin', adminRouter)
 
 
 

@@ -54,10 +54,7 @@ router.post(('/signup'), function (req, res, next){
             });
         } else {
             console.log('가입완료', results);
-            res.send({
-                "code" : 200,
-                "성공" : "가입완료"
-            });
+            res.redirect('/welcome')
         }
         var mailOption = {
             from : 'bodercoding@gmail.com',
@@ -103,7 +100,7 @@ router.post(('/login'), function(req,res,next){
                 } else {
                     res.send({
                         "code" : 204,
-                        "실패" : "이메일이나 비밀번호가 다릅니다"
+                        "실패" : "이메일이나 비밀번호가 다릅거나, 인증이 되지 않았습니다"
                     });
                 }
             } else {
