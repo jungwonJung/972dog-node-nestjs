@@ -11,14 +11,18 @@ var connection = mysql.createConnection({  // 데이터베이스 연동폼 ,
 });
 
 router.post(('/mypet'), function(req, res, next){
+    var email = req.body.email
     var dogname = req.body.dogname
     var necklength = req.body.necklength 
     var backlength = req.body.backlength
     var bellylength = req.body.bellylength
     var frontleg = req.body.frontleg
     var behindleg = req.body.behindleg
-    var datas = [dogname, necklength, backlength ,bellylength, frontleg, behindleg]
-    var sql = "INSERT INTO pet_info (petName, necklength, backlength, bellylength, frontleg, behindleg) values(?,?,?,?,?,?)"
+    var datas = [email, dogname, necklength, backlength ,bellylength, frontleg, behindleg]
+    var sql = "INSERT INTO pet_info (userEmail, petName, necklength, backlength, bellylength, frontleg, behindleg) values(?,?,?,?,?,?,?)"
+
+    if(!email || !dogname || !necklength || !backlength || !bellylength || !frontleg || !behindleg)
+        return res.status(500).json({message: "모든 항목을입력주세요"})
 
     connection.query(sql, datas, function(err, results){
         if (err) {

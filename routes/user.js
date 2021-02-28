@@ -2,19 +2,7 @@ const express= require('express');
 const router = express.Router();
 const mysql = require('mysql');
 const nodemailer = require('nodemailer');
-// const crypto = require('crypto')
-// var salt = '';
-// var pw = '';
-
-// crypto.randomBytes(64, (err, buf) => {
-//     if (err) throw err;
-//     salt = buf.toString('hex');
-// });
-// crypto.pbkdf2('userPw', salt, 100000, 64, 'sha512', (err, derivedkey) => {
-//     if (err) throw err;
-//     pw = derivedkey.toString('hex');
-// })
-
+const bcrypt = require('bcrypt-nodejs');
 
 var transporter = nodemailer.createTransport({  // transporter 에서 보낼 메일아이디와 비번 설정
     service: 'gmail',
@@ -42,10 +30,15 @@ router.post(('/signup'), function (req, res, next){
     var password = req.body.password;
     var created = today;
     var modified = today;
-    var datas = [email, name, password, created, modified] ;
-    var sql = "INSERT INTO user (userEmail, userName, userPw, created, modified, isActive) values(?,?,?,?,?,0)";
 
-    connection.query(sql, datas, function(err, results){
+    if(!email || !name || !password)
+        return res.status(500).json({message: "모든 항목을입력주세요"})
+
+    bcrypt.hash(password, null, null, function(err, hash){ // 비밀번호 암호화 하기위해 bcrypt설정 정해진형식이 문법존재
+        var sql = "INSERT INTO user (userEmail, userName, userPw, created, modified, isActive) values(?,?,?,?,?,0)";
+        var datas = [email, name, hash, created, modified] ; // 비밀번호 말고 callback 으로 생성된 hash 값 
+
+        connection.query(sql, datas, function(err, results){
         if (err) {
             console.log("에러발생", err);
             res.send({
@@ -71,7 +64,8 @@ router.post(('/signup'), function (req, res, next){
             }
             transporter.close();
         });
-    });
+    });    
+    })
 });
 
 
@@ -80,7 +74,7 @@ router.post(('/login'), function(req,res,next){
     var password = req.body.password;
 
     var sql = "SELECT * FROM user WHERE userEmail = ?";
-
+    
     connection.query(sql, email, function(err, results){
         if (err) {
             console.log("에러발생", err);
@@ -90,7 +84,8 @@ router.post(('/login'), function(req,res,next){
             });
         } else {
             if(results.length > 0) {
-                if(results[0].userPw == password, results[0].isActive == 1) {
+                if(!bcrypt.compareSync(password, results[0].userPw), results[0].isActive == 1) { 
+                    // 비밀번호는 이미 가입시 암호화 되서 db에 저장되어잇으므로 확인하는 절차가 필요
                     console.log(results)
                     res.redirect('/petinfo/list')
                     // res.send({

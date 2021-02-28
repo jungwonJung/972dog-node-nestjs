@@ -16,6 +16,9 @@ router.post(('/login'), function(req,res,next){
 
     var sql = "SELECT * FROM user WHERE userEmail = ?";
 
+    if(!email || !password)
+        return res.status(500).json({message: "모든 항목을입력주세요"})
+
     connection.query(sql, email, function(err, results){
         if (err) {
             console.log("에러발생", err);
