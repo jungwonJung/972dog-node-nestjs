@@ -22,7 +22,7 @@ var connection = mysql.createConnection({  // 데이터베이스 연동폼 ,
 });
 
 
-// 회원가입 이메일 인증 !
+// 회원가입 이메일 인증 ! 비밀번호 암호화
 router.post(('/signup'), function (req, res, next){
     var today = new Date();
     var email = req.body.email;
@@ -68,7 +68,7 @@ router.post(('/signup'), function (req, res, next){
     })
 });
 
-
+//회원 로그인 
 router.post(('/login'), function(req,res,next){
     var email = req.body.email;
     var password = req.body.password;

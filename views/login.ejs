@@ -16,14 +16,16 @@
         <div class="row mt-5">
             <div class="col-12">
                 <form action="/user/login" method="POST" class="signupform">
-
+                    
+                <legend>로그인</legend>
+                
                 <div class="form-group"></div>
                 <label for="email">이메일</label>
-                <input name="email" type="text" class="form-control" placeholder="이메일">
+                <input name="email" type="text" class="form-control"  minlength="8" placeholder="이메일">
 
                 <div class="form-group"></div>
                 <label for="password">비밀번호</label>
-                <input name="password" type="text" class="form-control" placeholder="비밀번호">
+                <input name="password" type="password" class="form-control"  minlength="6" placeholder="비밀번호">
 
                 <div class="form-group"></div>
                 <button type="submit" class="btn btn-primary">로그인</button>

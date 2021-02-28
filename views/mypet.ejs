@@ -16,14 +16,21 @@
         <div class="row mt-5">
         <div class="col-12">
         <form action="/petinfo/mypet" method="POST" class="signupform">
+            
+        <legend>반려견의 정보를 입력해주세요</legend>
 
         <div class="form-group"></div>
         <label for="email">견주이메일</label>
-        <input name="email" type="text" class="form-control" placeholder="견주이메일">
+        <input name="email" type="text" class="form-control"  minlength="8" placeholder="견주이메일">
 
         <div class="form-group"></div>
         <label for="dogname">강아지이름</label>
         <input name="dogname" type="text" class="form-control" placeholder="강아지이름">
+
+        
+        <div class="form-group"></div>
+        <label for="chestlength">가슴둘레(cm로 단위제외 숫자만)</label>
+        <input name="chestlength" type="text" class="form-control" placeholder="가슴둘레">
 
         <div class="form-group"></div>
         <label for="necklength">목둘레(cm로 단위제외 숫자만)</label>
