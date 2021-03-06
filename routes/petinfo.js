@@ -14,7 +14,7 @@ var connection = mysql.createConnection({  // 데이터베이스 연동폼 ,
 
 // 나의 반려동물 정보 입력
 router.post(('/mypet'), function(req, res, next){
-    var email = req.body.email
+    var name = req.body.name
     var dogname = req.body.dogname
     var necklength = req.body.necklength 
     var chestlength = req.body.chestlength
@@ -22,10 +22,10 @@ router.post(('/mypet'), function(req, res, next){
     var bellylength = req.body.bellylength
     var frontleg = req.body.frontleg
     var behindleg = req.body.behindleg
-    var datas = [email, dogname, necklength, chestlength, backlength ,bellylength, frontleg, behindleg]
-    var sql = "INSERT INTO pet_info (userEmail, petName, necklength, chestlength, backlength, bellylength, frontleg, behindleg) values(?,?,?,?,?,?,?,?)"
+    var datas = [name, dogname, necklength, chestlength, backlength ,bellylength, frontleg, behindleg]
+    var sql = "INSERT INTO pet_info (userName, petName, necklength, chestlength, backlength, bellylength, frontleg, behindleg) values(?,?,?,?,?,?,?,?)"
 
-    if(!email || !dogname || !necklength || !chestlength || !backlength || !bellylength || !frontleg || !behindleg)
+    if(!name || !dogname || !necklength || !chestlength || !backlength || !bellylength || !frontleg || !behindleg)
         return res.status(500).json({message: "모든 항목을입력주세요"})
 
     connection.query(sql, datas, function(err, results){
@@ -42,19 +42,19 @@ router.post(('/mypet'), function(req, res, next){
     })
 })
 
-router.post(('/ruffwear_collar'), function(req, res, next) {
-    var email = req.body.email
+router.post(('/collar'), function(req, res, next) {
+    var name = req.body.name
     var dogname = req.body.dogname
-    var datas = [ email, dogname ]
-    var sql1 = "SELECT * FROM pet_info LEFT outer JOIN ruffwear_collar ON pet_info.necklength = ruffwear_collar.necklength;" ;
-    var sql2 = "SELECT * FROM pet_info LEFT outer JOIN hurta_collar ON pet_info.necklength = hurta_collar.necklength;"
-    var sql3 = "SELECT * FROM pet_info LEFT outer JOIN boondog_collar ON pet_info.necklength = boondog_collar.necklength;"
+    var datas = [ name, dogname ]
+    var sql = "SELECT * FROM pet_info LEFT JOIN pet_collar ON pet_info.necklength = pet_collar.necklength WHERE userName = ? AND petName = ?;"
+    // var sql = "SELECT * FROM pet_info LEFT outer JOIN hurta_collar ON pet_info.necklength = hurta_collar.necklength;"
+    // var sql = "SELECT * FROM pet_info LEFT outer JOIN boondog_collar ON pet_info.necklength = boondog_collar.necklength;"
 
 
-    if(!email || !dogname)
+    if(!name || !dogname)
         return res.status(500).json({message: "모든 항목을 입력해주세요"})
 
-    connection.query(sql1, datas, function(err, results){
+    connection.query(sql, datas, function(err, results){
         if (err) {
             console.log("에러발생", err);
             res.send({
@@ -66,12 +66,61 @@ router.post(('/ruffwear_collar'), function(req, res, next) {
             res.send({results})
         }
     })
-
-
-
-
-
 })
+
+router.post(('/harness'), function(req, res, next) {
+    var name = req.body.name
+    var dogname = req.body.dogname
+    var datas = [ name, dogname ]
+    var sql = "SELECT * FROM pet_info LEFT JOIN pet_harness ON pet_info.chestlength = pet_harness.chestlength WHERE userName = ? AND petName = ?;"
+    // var sql = "SELECT * FROM pet_info LEFT outer JOIN hurta_collar ON pet_info.necklength = hurta_collar.necklength;"
+    // var sql = "SELECT * FROM pet_info LEFT outer JOIN boondog_collar ON pet_info.necklength = boondog_collar.necklength;"
+
+
+    if(!name || !dogname)
+        return res.status(500).json({message: "모든 항목을 입력해주세요"})
+
+    connection.query(sql, datas, function(err, results){
+        if (err) {
+            console.log("에러발생", err);
+            res.send({
+                "code" : 400,
+                "실패" : "에러 발생"
+            });
+        } else {
+            console.log('입력완료', results);
+            res.send({results})
+        }
+    })
+})
+
+router.post(('/wear'), function(req, res, next) {
+    var name = req.body.name
+    var dogname = req.body.dogname
+    var datas = [ name, dogname ]
+    var sql = "SELECT * FROM pet_info LEFT JOIN pet_wear ON pet_info.chestlength = pet_wear.chestlength WHERE userName = ? AND petName = ?;"
+    // var sql = "SELECT * FROM pet_info LEFT outer JOIN hurta_collar ON pet_info.necklength = hurta_collar.necklength;"
+    // var sql = "SELECT * FROM pet_info LEFT outer JOIN boondog_collar ON pet_info.necklength = boondog_collar.necklength;"
+
+
+    if(!name || !dogname)
+        return res.status(500).json({message: "모든 항목을 입력해주세요"})
+
+    connection.query(sql, datas, function(err, results){
+        if (err) {
+            console.log("에러발생", err);
+            res.send({
+                "code" : 400,
+                "실패" : "에러 발생"
+            });
+        } else {
+            console.log('입력완료', results);
+            res.send({results})
+        }
+    })
+})
+
+
 
 
 module.exports = router;
