@@ -3,6 +3,8 @@ const router = express.Router();
 const mysql = require('mysql');
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt-nodejs');
+var session = require('express-session');
+var MySQLStore = require('express-mysql-session')(session);
 
 var transporter = nodemailer.createTransport({  // transporter 에서 보낼 메일아이디와 비번 설정
     service: 'gmail',
@@ -11,16 +13,6 @@ var transporter = nodemailer.createTransport({  // transporter 에서 보낼 메
         pass:'codingboder'
     }
 });
-
-
-var connection = mysql.createConnection({  // 데이터베이스 연동폼 , 
-    host : "localhost",
-    user: "root",
-    password: "99189176",
-    database: "database",
-    port:"3306",
-});
-
 
 // 회원가입 이메일 인증 ! 비밀번호 암호화
 router.post(('/signup'), function (req, res, next){

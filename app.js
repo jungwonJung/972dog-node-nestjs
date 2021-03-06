@@ -4,8 +4,10 @@ var ejs = require('ejs');
 var bodyparser = require('body-parser');
 var mysql = require('mysql')
 
+
 app.set('view engine', 'ejs');
 app.set('views', './views/')
+
 
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({extended:true}))

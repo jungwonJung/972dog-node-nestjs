@@ -10,6 +10,10 @@ router.get("/welcome", (req, res) => res.render("welcome", {page: "welcome"}));
 router.get("/petinfo/mypet", (req, res) => res.render("mypet", {page: "mypet"}));
 router.get("/petinfo/list", (req, res) => res.render("petinfolist", {page: "petinfolist"}));
 router.get("/admin/login", (req, res) => res.render("admin_login", {page: "admin_login"}));
+router.get("/petinfo/collar", (req, res) => res.render("petcollar", {page: "petcollar"}));    
+router.get("/petinfo/harness", (req, res) => res.render("petharness", {page: "petharness"}));
+router.get("/petinfo/wear", (req, res) => res.render("petwear", {page: "petwear"}));
+
 
 
 module.exports = router;

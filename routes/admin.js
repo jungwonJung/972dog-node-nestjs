@@ -8,6 +8,7 @@ var connection = mysql.createConnection({  // 데이터베이스 연동폼 ,
     password: "99189176",
     database: "database",
     port:"3306",
+    multipleStatements: true // 다중쿼리를 ';' 기준으로 보내기위함
 });
 
 router.post(('/login'), function(req,res,next){
