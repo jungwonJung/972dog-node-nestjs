@@ -14,6 +14,7 @@ router.get("/petinfo/list", (req, res) => res.render("petinfolist", {page: "peti
 router.get("/petinfo/collar", (req, res) => res.render("petcollar", {page: "petcollar"}));    
 router.get("/petinfo/harness", (req, res) => res.render("petharness", {page: "petharness"}));
 router.get("/petinfo/wear", (req, res) => res.render("petwear", {page: "petwear"}));
+router.get("/petinfo/collarlist", (req, res) => res.render("collar_result", {page: "collar_result"}));
 
 
 router.get("/admin/login", (req, res) => res.render("admin_login", {page: "admin_login"}));

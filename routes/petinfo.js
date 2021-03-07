@@ -1,7 +1,11 @@
 const express= require('express');
 const router = express.Router();
 var mysql = require('mysql');
+// var ejs = require('ejs');
+var app = express();
 
+// app.set('view engine', 'ejs');
+// app.set('views', './views/')
 
 var connection = mysql.createConnection({  // 데이터베이스 연동폼 , 
     host : "localhost",
@@ -42,6 +46,7 @@ router.post(('/mypet'), function(req, res, next){
     })
 })
 
+
 router.post(('/collar'), function(req, res, next) {
     var name = req.body.name
     var dogname = req.body.dogname
@@ -63,7 +68,7 @@ router.post(('/collar'), function(req, res, next) {
             });
         } else {
             console.log('입력완료', results);
-            res.send({results})
+            res.render('collar_result' , {results : results})
         }
     })
 })
@@ -80,7 +85,7 @@ router.post(('/harness'), function(req, res, next) {
     if(!name || !dogname)
         return res.status(500).json({message: "모든 항목을 입력해주세요"})
 
-    connection.query(sql, datas, function(err, results){
+    connection.query(sql, datas, function(err, results) {
         if (err) {
             console.log("에러발생", err);
             res.send({
@@ -89,7 +94,7 @@ router.post(('/harness'), function(req, res, next) {
             });
         } else {
             console.log('입력완료', results);
-            res.send({results})
+            res.render('harness_result' , {results : results})
         }
     })
 })
@@ -115,7 +120,7 @@ router.post(('/wear'), function(req, res, next) {
             });
         } else {
             console.log('입력완료', results);
-            res.send({results})
+            res.render('wear_result' , {results : results})
         }
     })
 })
