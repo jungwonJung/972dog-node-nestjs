@@ -11,7 +11,9 @@
 
 
 
-![보더꾸리사진](https://user-images.githubusercontent.com/63602609/111181173-0a383380-85f1-11eb-979d-ad89639c4eea.jpg)
+![보더꾸리사진](https://user-images.githubusercontent.com/63602609/111181173-0a383380-85f1-11eb-979d-ad89639c4eea.jpg)  
+
+![ezgif com-gif-maker (4)](https://user-images.githubusercontent.com/63602609/112424432-bc04fc00-8d77-11eb-8b50-1b79eb11b192.gif)
 
 ## 참여 인원
 -  @JUNGganzi
